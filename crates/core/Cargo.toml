@@ -1,0 +1,27 @@
+[package]
+name = "rustbox-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Core logic of RustBox: profiles, subscriptions, config generation, core process management, latency tests"
+
+[dependencies]
+rustbox-platform.workspace = true
+anyhow.workspace = true
+thiserror.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+serde_yaml.workspace = true
+base64.workspace = true
+url.workspace = true
+percent-encoding.workspace = true
+tokio.workspace = true
+reqwest.workspace = true
+futures.workspace = true
+tracing.workspace = true
+rustls = { version = "0.23.45", default-features = false, features = ["ring", "std", "tls12"] }
+x509-parser = "0.18.1"
+sha2 = "0.11.0"
+
+[target.'cfg(unix)'.dependencies]
+libc.workspace = true
