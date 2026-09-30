@@ -115,13 +115,55 @@ rustbox-cli config 5                           # показать конфиг, 
 
 Нужен Rust 1.85 или новее.
 
+### Linux
+
 ```sh
 cargo build --release
 ./target/release/rustbox          # графический клиент
 ./target/release/rustbox-cli --help
 ```
 
-Сборка для Windows из Linux (результат — `dist/RustBox-windows.zip` вместе с ядрами):
+### Windows
+
+1. Установите **Visual Studio Build Tools** с набором «Разработка классических приложений на C++»:
+   https://visualstudio.microsoft.com/visual-cpp-build-tools/ — он нужен для компоновщика и сборки
+   криптобиблиотеки.
+2. Установите **Rust** через `rustup-init.exe` с https://rustup.rs (параметры по умолчанию).
+3. Установите **Git** (https://git-scm.com) и соберите клиент в PowerShell:
+
+   ```powershell
+   git clone https://github.com/naziqx/VPN-Client-Rustix.git
+   cd VPN-Client-Rustix
+   cargo build --release
+   ```
+
+   Готовые файлы появятся в `target\release\`: `rustbox.exe` и `rustbox-cli.exe`.
+
+4. Скачайте ядра и положите их в папку `cores` рядом с `rustbox.exe`:
+   - [Xray](https://github.com/XTLS/Xray-core/releases) — архив `Xray-windows-64.zip`, из него нужны
+     `xray.exe`, `geoip.dat` и `geosite.dat`;
+   - [sing-box](https://github.com/SagerNet/sing-box/releases) — архив `sing-box-<версия>-windows-amd64.zip`,
+     из него нужен `sing-box.exe`.
+
+   Должно получиться так:
+
+   ```
+   target\release\
+     rustbox.exe
+     cores\
+       xray.exe
+       sing-box.exe
+       geoip.dat
+       geosite.dat
+   ```
+
+   Клиент также ищет ядра в `%APPDATA%\rustbox\cores` и в `PATH`.
+
+5. Запустите `rustbox.exe`.
+
+### Windows-сборка из Linux
+
+Скрипт соберёт готовый архив `dist/RustBox-windows.zip` вместе с ядрами:
 
 ```sh
 sudo pacman -S mingw-w64-gcc
